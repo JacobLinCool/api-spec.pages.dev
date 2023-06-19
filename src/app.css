@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-	@apply relative font-sans;
+	@apply relative;
 }
 
 *::-webkit-scrollbar {

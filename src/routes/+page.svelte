@@ -33,7 +33,7 @@
 </svelte:head>
 
 <div class="flex h-full w-full items-center justify-center">
-	<div class="prose">
+	<div class="prose font-sans">
 		<h1>{$t("welcome")}</h1>
 		<p>{$t("description")}</p>
 		<div class="divider" />
