@@ -4,10 +4,11 @@
 	import { t } from "svelte-i18n";
 
 	let url = "https://woj.csie.cool/api/openapi.json";
+	$: ok = check(url);
 
 	let waiting = false;
-	async function go() {
-		if (waiting) {
+	async function go(): Promise<void> {
+		if (waiting || !ok) {
 			return;
 		}
 		waiting = true;
@@ -25,6 +26,18 @@
 			waiting = false;
 		}
 	}
+
+	function check(url: string): boolean {
+		try {
+			const u = new URL(url);
+			if (!u.protocol.startsWith("http")) {
+				throw new Error();
+			}
+			return true;
+		} catch (err) {
+			return false;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -32,7 +45,7 @@
 	<meta name="description" content={$t("description")} />
 </svelte:head>
 
-<div class="flex h-full w-full items-center justify-center">
+<div class="flex h-full w-full items-center justify-center p-4">
 	<div class="prose font-sans">
 		<h1>{$t("welcome")}</h1>
 		<p>{$t("description")}</p>
@@ -43,11 +56,13 @@
 				class="input-bordered input-primary input join-item flex-1"
 				placeholder="https://example.com/openapi.json"
 				bind:value={url}
+				class:input-error={!ok}
 			/>
 			<button
 				class="btn-primary join-item btn rounded-r-full"
 				class:animate-pulse={waiting}
-				disabled={!url || waiting}
+				class:btn-error={!ok}
+				disabled={!url || waiting || !ok}
 				on:click={go}
 			>
 				{$t("open")}
