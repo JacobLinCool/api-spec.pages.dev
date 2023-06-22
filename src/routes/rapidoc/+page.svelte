@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
+	import { page } from "$app/stores";
 	import { onMount } from "svelte";
-	import "swagger-ui-dist/swagger-ui.css";
 
 	export let data;
 
-	let node: HTMLDivElement;
+	let node: HTMLElement;
 
 	onMount(async () => {
 		if (!data.spec) {
@@ -16,14 +16,17 @@
 	});
 
 	async function render() {
-		const { SwaggerUIBundle } = await import("swagger-ui-dist");
-		SwaggerUIBundle({
-			spec: data.spec,
-			domNode: node,
-			deepLinking: true,
-			presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset],
-			plugins: [SwaggerUIBundle.plugins.DownloadUrl],
-		});
+		// @ts-expect-error
+		await import("rapidoc");
+
+		for (const [key, value] of $page.url.searchParams) {
+			if (key !== "url") {
+				node.setAttribute(key, value);
+			}
+		}
+
+		// @ts-expect-error
+		node.loadSpec(data.spec);
 	}
 </script>
 
@@ -37,4 +40,4 @@
 	{/if}
 </svelte:head>
 
-<div class="h-full w-full overflow-auto" bind:this={node} />
+<rapi-doc bind:this={node} show-header={false} render-style="view" />

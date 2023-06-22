@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("can load yaml spec", async ({ page }) => {
+test("can load yaml spec for SwaggerUI", async ({ page }) => {
 	await page.goto(
 		"/x?url=https://raw.githubusercontent.com/OpenAPITools/openapi-generator/master/modules/openapi-generator/src/test/resources/2_0/petstore.yaml",
 	);
@@ -11,7 +11,7 @@ test("can load yaml spec", async ({ page }) => {
 	);
 });
 
-test("can load json spec", async ({ page }) => {
+test("can load json spec for SwaggerUI", async ({ page }) => {
 	await page.goto("/x?url=https://generator3.swagger.io/openapi.json");
 	await expect(page.title()).resolves.toMatch("Swagger Generator");
 	await expect(page.locator("meta[name=description]").first()).toHaveAttribute(
