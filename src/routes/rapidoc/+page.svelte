@@ -40,4 +40,9 @@
 	{/if}
 </svelte:head>
 
-<rapi-doc bind:this={node} show-header={false} render-style="view" />
+<rapi-doc bind:this={node} show-header={false} render-style="view">
+	<div class="pt-4" />
+	<div slot="footer" class="flex h-12 w-full items-center justify-center text-sm">
+		<span>Served by <a href="/" class="link-hover link"> {$page.url.host} </a></span>
+	</div>
+</rapi-doc>
