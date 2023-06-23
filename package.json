@@ -41,7 +41,7 @@
 		"prettier-plugin-svelte": "^2.10.1",
 		"prettier-plugin-tailwindcss": "^0.3.0",
 		"rapidoc": "^9.3.4",
-		"svelte": "^3.59.1",
+		"svelte": "^4.0.0",
 		"svelte-check": "^3.4.3",
 		"svelte-i18n": "^3.6.0",
 		"swagger-ui-dist": "^5.1.0",
